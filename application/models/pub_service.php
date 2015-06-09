@@ -52,7 +52,7 @@ class Pub_service extends CI_Model
     public function submit($conn, $params)
     {
         $entity = new Pub_entity;
-        $entity -> sub_user_id = $params['user_id'];
+        $entity -> sub_user_id = $conn->token->user_id;
         $entity -> sub_service = $params['service'];
         $entity -> sub_method = $params['method'];
         $entity -> sub_params = json_encode($params['params']);
