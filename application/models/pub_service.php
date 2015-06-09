@@ -50,7 +50,7 @@ class Pub_service extends CI_Model
     }
 
     public function submit($conn, $params)
-    {
+    {print_r($params);
         $entity = new Pub_entity;
         $entity -> sub_user_id = $conn->token->user_id;
         $entity -> sub_service = $params['service'];
