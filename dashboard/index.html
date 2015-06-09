@@ -40,6 +40,11 @@
 
                     </div>
                 </div>
+                <div class="HTTPWatcher">
+                    <div class="HTTPWatcher_connection">
+
+                    </div>
+                </div>
             </div>
           </div>
         </div>
@@ -52,11 +57,14 @@
         <script src="./modules/core/pub.js" charset="utf-8"></script>
         <script src="./modules/device/device.js" charset="utf-8"></script>
         <script src="./modules/device/render.js" charset="utf-8"></script>
+        <script src="./modules/HTTPWatcher/HTTPWatcher.js" charset="utf-8"></script>
+        <script src="./modules/HTTPWatcher/render.js" charset="utf-8"></script>
         <script type="text/javascript">
             service.console = console;
             service.conn = new ConnService;
             service.sub = new SubService;
             service.device = new DeviceService;
+            service.HTTPWatcher = new HTTPWatcherService;
             service.conn.init();
         </script>
     </body>

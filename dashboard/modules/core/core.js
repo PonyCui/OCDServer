@@ -3,5 +3,6 @@ var service = {
     conn:null,
     sub:null,
     pub:null,
-    device:null
+    device:null,
+    HTTPWatcher:null
 }
