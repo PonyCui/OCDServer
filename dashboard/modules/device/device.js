@@ -21,6 +21,5 @@ var DeviceService = function() {
         var deviceItem = new DeviceEntity;
         deviceItem.init(params);
         this.onlineDevices[deviceItem.deviceIdentifier] = deviceItem;
-        console.log(this.onlineDevices);
     }
 }
