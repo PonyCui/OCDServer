@@ -25,6 +25,23 @@ function render_HTTPWatcher_update_item_modal(params) {
     $('#globalModal').find('#response_MIMEType').val(connectionItem.responseMIMEType);
     $('#globalModal').find('#response_header').val(connectionItem.responseHeader);
     $('#globalModal').find('#response_text').val(connectionItem.responseString);
+    var json = null;
+    try {
+        eval('json='+connectionItem.responseString);
+    } catch (e) {
+        $('#globalModal').find('#response_text').show();
+        $('#globalModal').find('#jsoneditor').hide();
+        $('#response_JSON_button').removeClass('btn-primary');
+        $('#response_Text_button').addClass('btn-primary');
+    } finally {
+        if (json !== null) {
+            $('#globalModal').find('#response_text').hide();
+            $('#globalModal').find('#jsoneditor').show();
+            $('#response_Text_button').removeClass('btn-primary');
+            $('#response_JSON_button').addClass('btn-primary');
+            jeditor.set(json);
+        }
+    }
 }
 
 setInterval(render_HTTPWatcher_connection_update, 1000);

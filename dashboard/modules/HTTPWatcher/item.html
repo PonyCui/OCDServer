@@ -48,12 +48,16 @@
                 </form>
                 <div style="height:11px"></div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Response Header</label>
-                    <textarea class="form-control" rows="5" id="response_header"></textarea>
+                    <label for="exampleInputEmail1">Response Header (<a onclick="$(this).parent().parent().find('textarea').show()">Show</a>)</label>
+                    <textarea class="form-control" rows="5" id="response_header" style="display:none;"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Response Text</label>
+                    <label for="exampleInputEmail1">Response Text
+                        <button type="button" class="btn btn-primary btn-xs" id="response_JSON_button" onclick="$('#globalModal').find('#response_text').hide();$('#globalModal').find('#jsoneditor').show();$('#response_Text_button').removeClass('btn-primary');$('#response_JSON_button').addClass('btn-primary');">JSON</button>
+                        <button type="button" class="btn btn-default btn-xs" id="response_Text_button" onclick="$('#globalModal').find('#response_text').show();$('#globalModal').find('#jsoneditor').hide();$('#response_JSON_button').removeClass('btn-primary');$('#response_Text_button').addClass('btn-primary');">Text</button>
+                    </label>
                     <textarea class="form-control" rows="5" id="response_text"></textarea>
+                    <div id="jsoneditor" style="width: 100%; height: 300px;"></div>
                 </div>
             </div>
           </div>
@@ -66,3 +70,11 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+var container = document.getElementById("jsoneditor");
+var options = {
+mode: 'tree'
+};
+var jeditor = new JSONEditor(container, options);
+</script>
