@@ -46,6 +46,11 @@
 
                     </div>
                 </div>
+                <div class="point">
+                    <div class="point_items">
+
+                    </div>
+                </div>
             </div>
           </div>
         </div>
@@ -66,14 +71,18 @@
         <script src="./modules/device/render.js" charset="utf-8"></script>
         <script src="./modules/HTTPWatcher/HTTPWatcher.js" charset="utf-8"></script>
         <script src="./modules/HTTPWatcher/render.js" charset="utf-8"></script>
+        <script src="./modules/point/point.js" charset="utf-8"></script>
+        <script src="./modules/point/render.js" charset="utf-8"></script>
         <script src="./vectors/jsoneditor/jsoneditor.min.js"></script>
 
         <script type="text/javascript">
             service.console = console;
             service.conn = new ConnService;
             service.sub = new SubService;
+            service.pub = new PubService;
             service.device = new DeviceService;
             service.HTTPWatcher = new HTTPWatcherService;
+            service.point = new PointService;
             service.conn.init();
         </script>
 

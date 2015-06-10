@@ -1,5 +1,15 @@
 var PubService = function() {
-    this.submit = function(text) {
-        service.conn.conn.send('{"s":"pub", "m":"submit", "p": {"user_id": "1", "service": "test", "method": "test", "params":{"text": "'+text+'"}}}');
+
+    this.pubMessage = function(theService, theMethod, theParams) {
+        var json = {
+            "s": "pub",
+            "m": "submit",
+            "p": {
+                "service": theService,
+                "method": theMethod,
+                "params": theParams
+            }
+        };
+        service.conn.conn.send(JSON.stringify(json));
     }
 }

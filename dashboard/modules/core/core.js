@@ -4,5 +4,6 @@ var service = {
     sub:null,
     pub:null,
     device:null,
-    HTTPWatcher:null
+    HTTPWatcher:null,
+    point:null
 }
