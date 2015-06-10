@@ -1,6 +1,7 @@
 var HTTPWatcherConnectionEntity = function() {
     var _this = this;
 
+    this.deviceIdentifier = '';
     this.orderID = '';
     this.requestURLString = '';
     this.requestDate = '';

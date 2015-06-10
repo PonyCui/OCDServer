@@ -9,7 +9,8 @@ function render_HTTPWatcher_connection_update() {
                 connectionItem.responseStatusCode != '0') {
                 connectionStatus = connectionItem.responseStatusCode;
             }
-            $('.HTTPWatcher_connection').find('tbody').append('<tr><td>'+k+'</td><td>'+connectionItem.requestURLString+'</td><td>'+connectionStatus+'</td></tr>');
+            $('.HTTPWatcher_connection').find('tbody').append('<tr><td>'+i+'</td><td>'+connectionItem.deviceIdentifier.substr(-6, 6)+'</td><td>'+connectionItem.requestURLString+'</td><td>'+connectionStatus+'</td></tr>');
+            i++;
         });
     })
 }

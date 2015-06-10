@@ -11,7 +11,7 @@ function render_device_update() {
             else {
                 timeOffset = timeOffset + 's before';
             }
-            $('.overview_device').find('tbody').append('<tr><td>'+i+'</td><td>'+deviceItem.deviceName+'</td><td>'+deviceItem.deviceSystemVersion+'</td><td>'+deviceItem.deviceModel+'</td><td>'+timeOffset+'</td></tr>');
+            $('.overview_device').find('tbody').append('<tr><td>'+i+'</td><td>'+deviceItem.deviceIdentifier.substr(-6, 6)+'</td><td>'+deviceItem.deviceName+'</td><td>'+deviceItem.deviceSystemVersion+'</td><td>'+deviceItem.deviceModel+'</td><td>'+timeOffset+'</td></tr>');
             i++;
         });
     })
