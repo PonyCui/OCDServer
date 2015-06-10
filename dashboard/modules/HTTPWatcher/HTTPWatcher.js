@@ -6,6 +6,7 @@ var HTTPWatcherConnectionEntity = function() {
     this.requestURLString = '';
     this.requestDate = '';
     this.requestMethod = '';
+    this.requestHeader = '';
     this.responseURLString = '';
     this.responseStatusCode = '';
     this.responseMIMEType = '';
@@ -25,6 +26,7 @@ var HTTPWatcherConnectionEntity = function() {
             }
         });
     }
+
 }
 
 var HTTPWatcherService = function() {

@@ -1,0 +1,68 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel">Connection Item</h4>
+    </div>
+    <div class="modal-body">
+        <div role="tabpanel">
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#request" aria-controls="request" role="tab" data-toggle="tab">Request</a></li>
+            <li role="presentation"><a href="#response" aria-controls="response" role="tab" data-toggle="tab">Response</a></li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="request">
+                <div style="height:22px"></div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Request URL</label>
+                    <input type="text" class="form-control" id="request_url" placeholder="URL">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Request Method</label>
+                    <input type="text" class="form-control" id="request_method" placeholder="Method">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Request Header</label>
+                    <textarea class="form-control" rows="5" id="request_header"></textarea>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="response">
+                <div style="height:22px"></div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Response URL</label>
+                    <input type="text" class="form-control" id="response_url" placeholder="URL">
+                </div>
+                <form class="form-inline">
+                  <div class="form-group">
+                    <label for="exampleInputName2">Code</label>
+                    <input type="text" class="form-control" id="response_code" placeholder="Code">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail2">MIMEType</label>
+                    <input type="text" class="form-control" id="response_MIMEType" placeholder="MIMEType">
+                  </div>
+                </form>
+                <div style="height:11px"></div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Response Header</label>
+                    <textarea class="form-control" rows="5" id="response_header"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Response Text</label>
+                    <textarea class="form-control" rows="5" id="response_text"></textarea>
+                </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+    </div>
+  </div>
+</div>

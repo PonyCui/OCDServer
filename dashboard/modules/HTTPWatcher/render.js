@@ -9,10 +9,22 @@ function render_HTTPWatcher_connection_update() {
                 connectionItem.responseStatusCode != '0') {
                 connectionStatus = connectionItem.responseStatusCode;
             }
-            $('.HTTPWatcher_connection').find('tbody').append('<tr><td>'+i+'</td><td>'+connectionItem.deviceIdentifier.substr(-6, 6)+'</td><td>'+connectionItem.requestURLString+'</td><td>'+connectionStatus+'</td></tr>');
+            $('.HTTPWatcher_connection').find('tbody').append('<tr><td>'+i+'</td><td>'+connectionItem.deviceIdentifier.substr(-6, 6)+'</td><td data-toggle="modal" data-target="#globalModal" onclick="loadModal(\'modules/HTTPWatcher/item.html\', render_HTTPWatcher_update_item_modal, {id:'+k+'})"><span class="text-info">'+connectionItem.requestURLString+'</span></td><td>'+connectionStatus+'</td></tr>');
             i++;
         });
     })
+}
+
+function render_HTTPWatcher_update_item_modal(params) {
+    var connectionItem = service.HTTPWatcher.connections[params.id];
+    $('#globalModal').find('#request_url').val(connectionItem.requestURLString);
+    $('#globalModal').find('#request_method').val(connectionItem.requestMethod);
+    $('#globalModal').find('#request_header').val(connectionItem.requestHeader);
+    $('#globalModal').find('#response_url').val(connectionItem.responseURLString);
+    $('#globalModal').find('#response_code').val(connectionItem.responseStatusCode);
+    $('#globalModal').find('#response_MIMEType').val(connectionItem.responseMIMEType);
+    $('#globalModal').find('#response_header').val(connectionItem.responseHeader);
+    $('#globalModal').find('#response_text').val(connectionItem.responseString);
 }
 
 setInterval(render_HTTPWatcher_connection_update, 1000);
