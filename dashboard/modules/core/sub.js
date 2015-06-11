@@ -1,8 +1,8 @@
 var SubService = function(){
 
-    var user_id = "1";
+    var user_id = serviceAppID;
 
-    var session_token = "testToken";
+    var session_token = serviceTokenID;
 
     this.heartBeatTimer = null;
 
@@ -33,6 +33,7 @@ var SubService = function(){
     }
 
     this.didReceivedError = function(params) {
+        alert(params.error_description);
         service.console.log('[Error] code:'+params.error_code+',desc:'+params.error_description);
     }
 

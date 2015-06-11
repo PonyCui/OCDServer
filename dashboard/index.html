@@ -20,8 +20,9 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Change App</a></li>
-                <li><a href="#">Require Token</a></li>
+                <li><a href="#">Current AppID = <span id="header_app_id">?</span></a></li>
+                <li><a href="#" onclick="change_app_id()">Change AppID</a></li>
+                <li><a href="#">Request AppID</a></li>
               </ul>
             </div>
           </div>
@@ -78,6 +79,20 @@
         <script src="./vectors/jsoneditor/jsoneditor.min.js"></script>
 
         <script type="text/javascript">
+
+            var serviceAppID = '';
+            var serviceTokenID = '';
+            {
+                var url = window.location.href;
+                var urlParams = url.split('?access=');
+                if (urlParams != undefined && urlParams.length > 0) {
+                    var accessString = urlParams[1];
+                    serviceAppID = accessString.split(',')[0];
+                    serviceTokenID = accessString.split(',')[1];
+                    $('#header_app_id').text(serviceAppID);
+                }
+            }
+
             service.console = console;
             service.conn = new ConnService;
             service.sub = new SubService;
@@ -104,6 +119,18 @@
                     $('#globalModal').html(result);
                     func(params);
                 })
+            }
+        </script>
+
+        <script type="text/javascript">
+            function change_app_id() {
+                var appid = prompt('Please input your appid.');
+                if (appid != null && appid.length > 0) {
+                    var apptoken = prompt('Please input your apptoken');
+                    if (apptoken != null && apptoken.length > 0) {
+                        window.location.href = 'index.html?access='+appid+','+apptoken;
+                    }
+                }
             }
         </script>
     </body>
