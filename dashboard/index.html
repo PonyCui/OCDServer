@@ -73,6 +73,8 @@
         <script src="./modules/HTTPWatcher/render.js" charset="utf-8"></script>
         <script src="./modules/point/point.js" charset="utf-8"></script>
         <script src="./modules/point/render.js" charset="utf-8"></script>
+        <script src="./modules/log/log.js" charset="utf-8"></script>
+        <script src="./modules/log/render.js" charset="utf-8"></script>
         <script src="./vectors/jsoneditor/jsoneditor.min.js"></script>
 
         <script type="text/javascript">
@@ -83,6 +85,7 @@
             service.device = new DeviceService;
             service.HTTPWatcher = new HTTPWatcherService;
             service.point = new PointService;
+            service.log = new LogService;
             service.conn.init();
         </script>
 

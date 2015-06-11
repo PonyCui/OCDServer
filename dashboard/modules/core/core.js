@@ -5,5 +5,6 @@ var service = {
     pub:null,
     device:null,
     HTTPWatcher:null,
-    point:null
+    point:null,
+    log:null
 }

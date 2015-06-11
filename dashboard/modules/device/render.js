@@ -20,11 +20,13 @@ function render_device_update() {
 function render_device_item_update(params) {
     var deviceItem = service.device.onlineDevices[params.id];
     current_point_device_identifier = params.id;
+    current_log_device_identifier = params.id;
     $('#deviceIdentifier').val(deviceItem.deviceIdentifier);
     $('#deviceName').val(deviceItem.deviceName);
     $('#deviceSystemVersion').val(deviceItem.deviceSystemVersion);
     $('#deviceModel').val(deviceItem.deviceModel);
     service.point.sendPointRequest();
+    render_log_update({deviceIdentifier: id});
 }
 
 setInterval(render_device_update, 1000);
