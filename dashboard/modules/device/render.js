@@ -26,7 +26,7 @@ function render_device_item_update(params) {
     $('#deviceSystemVersion').val(deviceItem.deviceSystemVersion);
     $('#deviceModel').val(deviceItem.deviceModel);
     service.point.sendPointRequest();
-    render_log_update({deviceIdentifier: id});
+    render_log_update({deviceIdentifier: params.id});
 }
 
 setInterval(render_device_update, 1000);
