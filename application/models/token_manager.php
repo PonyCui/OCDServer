@@ -48,4 +48,14 @@ class Token_manager extends CI_Model
             }
         }
     }
+
+    public function register_token()
+    {
+        $token = md5(uniqid(mt_rand(0, 999999)));
+        $this->db->insert('token', array('session_token'=>$token, 'session_access'=>'pub,sub'));
+        return array(
+            'appid' => $this->db->insert_id(),
+            'apptoken' => $token
+        );
+    }
 }

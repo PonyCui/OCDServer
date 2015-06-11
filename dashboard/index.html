@@ -20,9 +20,9 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Current AppID = <span id="header_app_id">?</span></a></li>
+                <li><a href="#" onclick="show_app_token()">Current AppID = <span id="header_app_id">?</span></a></li>
                 <li><a href="#" onclick="change_app_id()">Change AppID</a></li>
-                <li><a href="#">Request AppID</a></li>
+                <li><a href="#" onclick="request_app_id()">Request AppID</a></li>
               </ul>
             </div>
           </div>
@@ -89,6 +89,7 @@
                     var accessString = urlParams[1];
                     serviceAppID = accessString.split(',')[0];
                     serviceTokenID = accessString.split(',')[1];
+                    serviceTokenID = serviceTokenID.replace('#', '');
                     $('#header_app_id').text(serviceAppID);
                 }
             }
@@ -131,6 +132,17 @@
                         window.location.href = 'index.html?access='+appid+','+apptoken;
                     }
                 }
+            }
+
+            function request_app_id() {
+                $.getJSON('../index.php/token/register_app_id', function(result){
+                    alert('Your appid = '+result.appid+"\n"+'Your apptoken = '+result.apptoken);
+                    window.location.href = 'index.html?access='+result.appid+','+result.apptoken;
+                })
+            }
+
+            function show_app_token() {
+                alert('Your apptoken = '+serviceTokenID);
             }
         </script>
     </body>
