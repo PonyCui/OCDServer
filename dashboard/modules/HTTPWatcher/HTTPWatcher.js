@@ -14,6 +14,7 @@ var HTTPWatcherConnectionEntity = function() {
     this.responseString = '';
     this.responseDataSize = '';
     this.timeUse = '';
+    this.requestBody = '';
 
     this.init = function(params) {
         $.each(params, function(k, v){

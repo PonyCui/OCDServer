@@ -69,6 +69,7 @@ function render_HTTPWatcher_update_item_modal(params) {
     $('#globalModal').find('#request_url').val(connectionItem.requestURLString);
     $('#globalModal').find('#request_method').val(connectionItem.requestMethod);
     $('#globalModal').find('#request_header').val(connectionItem.requestHeader);
+    $('#globalModal').find('#request_body').val(connectionItem.requestBody);
     $('#globalModal').find('#response_url').val(connectionItem.responseURLString);
     $('#globalModal').find('#response_code').val(connectionItem.responseStatusCode);
     $('#globalModal').find('#response_MIMEType').val(connectionItem.responseMIMEType);
