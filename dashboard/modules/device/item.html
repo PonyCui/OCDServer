@@ -63,10 +63,10 @@
             <div role="tabpanel" class="tab-pane" id="finder">
                 <div style="height:22px"></div>
                 <div class="form-group">
-                    <textarea class="form-control" rows="10" id="finder_cmd_screen"></textarea>
+                    <textarea class="form-control" rows="20" id="finder_cmd_screen" spellcheck="false" readonly="true"></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="finder_cmd_shell" placeholder="Enter shell here, support ls/cd/rm.">
+                    <input type="text" class="form-control" id="finder_cmd_shell" placeholder="Enter shell here, support ls/cd/rm/clear.">
                 </div>
             </div>
           </div>
@@ -81,8 +81,60 @@
 </div>
 
 <script type="text/javascript">
+    var subPathsUpdateTimer;
+
     $('#finder_cmd_shell').change(function(){
         service.finder.sendShell($(this).val());
         $(this).val('');
     })
+
+    $('#finder_cmd_shell').focus(function(){
+        service.finder.sendRequireSubPaths();
+        subPathsUpdateTimer = setInterval(service.finder.sendRequireSubPaths, 10000);
+    })
+
+    $('#finder_cmd_shell').blur(function(){
+        clearInterval(subPathsUpdateTimer);
+    })
+
+    var myInput = document.getElementById("finder_cmd_shell");
+    if(myInput.addEventListener) {
+        myInput.addEventListener('keydown',this.keyHandler,false);
+    } else if(myInput.attachEvent) {
+        myInput.attachEvent('onkeydown',this.keyHandler); /* damn IE hack */
+    }
+
+    function keyHandler(e) {
+        var TABKEY = 9;
+        var ENTERKEY = 13;
+        if(e.keyCode == TABKEY) {
+            var originText = $('#finder_cmd_shell').val();
+            if(e.preventDefault) {
+                e.preventDefault();
+            }
+            if (originText.length > 0) {
+                var newText = originText.split(' ');
+                var lastComponent = newText.pop();
+                newText = newText.join(' ');
+                for (var i = 0; i < service.finder.subPaths.length; i++) {
+                    if (service.finder.subPaths[i].indexOf(lastComponent) == 0) {
+                        newText = newText + ' ' + service.finder.subPaths[i];
+                        break;
+                    }
+                }
+                $('#finder_cmd_shell').val(newText);
+                return;
+            }
+            $('#finder_cmd_shell').val(originText);
+            return false;
+        }
+        else if (e.keyCode == ENTERKEY) {
+            service.finder.sendShell($(this).val());
+            $(this).val('');
+        }
+        else {
+             return true;
+        }
+    }
+
 </script>
