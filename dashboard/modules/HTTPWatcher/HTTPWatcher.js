@@ -15,6 +15,7 @@ var HTTPWatcherConnectionEntity = function() {
     this.responseDataSize = '';
     this.timeUse = '';
     this.requestBody = '';
+    this.isResendConnection = false;
 
     this.init = function(params) {
         $.each(params, function(k, v){
@@ -28,6 +29,9 @@ var HTTPWatcherConnectionEntity = function() {
                 }
             }
         });
+        if (this.requestHeader.indexOf('_OCD.ResendConnection') >= 0) {
+            this.isResendConnection = true;
+        }
     }
 
 }
@@ -48,5 +52,17 @@ var HTTPWatcherService = function() {
             connectionItem.init(params);
         }
         this.connections[params.orderID] = connectionItem;
+    }
+
+    this.requestResendConnection = function(params) {
+        var requestParams = {
+            deviceIdentifier:params.deviceIdentifier,
+            orderID:params.orderID,
+            requestURLString:params.requestURLString,
+            requestMethod:params.requestMethod,
+            requestHeader:params.requestHeader,
+            requestBody:params.requestBody
+        }
+        service.pub.pubMessage('HTTPWatcher', 'resendConnection', requestParams);
     }
 }

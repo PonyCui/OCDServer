@@ -59,7 +59,13 @@ function render_HTTPWatcher_connection_fill() {
             connectionItem.responseMIMEType.indexOf(render_HTTPWatcher_filter.type) < 0) {
             return;
         }
-        $('.HTTPWatcher_connection').find('tbody').prepend('<tr><td>'+device_id+'</td><td data-toggle="modal" data-target="#globalModal" onclick="loadModal(\'modules/HTTPWatcher/item.html\', render_HTTPWatcher_update_item_modal, {id:'+k+'})"><span class="text-info">'+urlString+'</span></td><td>'+connectionItem.requestMethod+'</td><td>'+connectionStatus+'</td><td>'+connectionItem.responseMIMEType+'</td><td>'+connectionItem.responseDataSize+'</td><td>'+connectionItem.timeUse+'</td></tr>');
+
+        var resendSign = 'class="text-info"';
+        if (connectionItem.isResendConnection) {
+            resendSign = 'class="text-danger"';
+        }
+
+        $('.HTTPWatcher_connection').find('tbody').prepend('<tr><td>'+device_id+'</td><td data-toggle="modal" data-target="#globalModal" onclick="loadModal(\'modules/HTTPWatcher/item.html\', render_HTTPWatcher_update_item_modal, {id:'+k+'})"><span '+resendSign+'>'+urlString+'</span></td><td>'+connectionItem.requestMethod+'</td><td>'+connectionStatus+'</td><td>'+connectionItem.responseMIMEType+'</td><td>'+connectionItem.responseDataSize+'</td><td>'+connectionItem.timeUse+'</td></tr>');
         i++;
     });
 }
@@ -92,6 +98,10 @@ function render_HTTPWatcher_update_item_modal(params) {
             jeditor.set(json);
         }
     }
+    $('#resend_button').click(function(){
+        service.HTTPWatcher.requestResendConnection(connectionItem);
+        $('#globalModal').modal('hide');
+    });
 }
 
 setInterval(render_HTTPWatcher_connection_update, 1000);
