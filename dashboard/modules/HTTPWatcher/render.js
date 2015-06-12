@@ -99,7 +99,13 @@ function render_HTTPWatcher_update_item_modal(params) {
         }
     }
     $('#resend_button').click(function(){
-        service.HTTPWatcher.requestResendConnection(connectionItem);
+        var resendConnectionItem = new HTTPWatcherConnectionEntity;
+        resendConnectionItem.init(connectionItem);
+        resendConnectionItem.requestURLString = $('#request_url').val();
+        resendConnectionItem.requestMethod = $('#request_method').val();
+        resendConnectionItem.requestHeader = $('#request_header').val();
+        resendConnectionItem.requestBody = $('#request_body').val();
+        service.HTTPWatcher.requestResendConnection(resendConnectionItem);
         $('#globalModal').modal('hide');
     });
 }
