@@ -21,6 +21,7 @@ function render_device_item_update(params) {
     var deviceItem = service.device.onlineDevices[params.id];
     current_point_device_identifier = params.id;
     current_log_device_identifier = params.id;
+    currnet_finder_device_identifier = params.id;
     $('#deviceIdentifier').val(deviceItem.deviceIdentifier);
     $('#deviceName').val(deviceItem.deviceName);
     $('#deviceSystemVersion').val(deviceItem.deviceSystemVersion);

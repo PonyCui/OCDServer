@@ -12,6 +12,7 @@
             <li role="presentation" class="active"><a href="#information" aria-controls="information" role="tab" data-toggle="tab">Information</a></li>
             <li role="presentation"><a href="#point" aria-controls="point" role="tab" data-toggle="tab">Debug Point</a></li>
             <li role="presentation"><a href="#log" aria-controls="log" role="tab" data-toggle="tab">Log</a></li>
+            <li role="presentation"><a href="#finder" aria-controls="finder" role="tab" data-toggle="tab">Finder</a></li>
           </ul>
 
           <!-- Tab panes -->
@@ -59,6 +60,15 @@
                     <textarea class="form-control" rows="10" id="device_log"></textarea>
                 </div>
             </div>
+            <div role="tabpanel" class="tab-pane" id="finder">
+                <div style="height:22px"></div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="10" id="finder_cmd_screen"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="finder_cmd_shell" placeholder="Enter shell here, support ls/cd/rm.">
+                </div>
+            </div>
           </div>
 
         </div>
@@ -69,3 +79,10 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $('#finder_cmd_shell').change(function(){
+        service.finder.sendShell($(this).val());
+        $(this).val('');
+    })
+</script>

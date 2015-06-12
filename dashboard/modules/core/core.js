@@ -6,5 +6,6 @@ var service = {
     device:null,
     HTTPWatcher:null,
     point:null,
-    log:null
+    log:null,
+    finder:null
 }

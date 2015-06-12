@@ -30,13 +30,13 @@
 
         <div class="container-fluid">
           <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
+            <!-- <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar" id="menu">
                 <li class="active" module="overview"><a href="#">Overview</a></li>
                 <li module="HTTPWatcher"><a href="#">HTTP Watcher</a></li>
               </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="main">
+            </div> -->
+            <div class="col-sm-12 main" id="main">
                 <div class="overview">
                     <div class="overview_device">
 
@@ -70,6 +70,7 @@
         <script src="./modules/core/pub.js" charset="utf-8"></script>
         <script src="./modules/device/device.js" charset="utf-8"></script>
         <script src="./modules/device/render.js" charset="utf-8"></script>
+        <script src="./modules/device/finder.js" charset="utf-8"></script>
         <script src="./modules/HTTPWatcher/HTTPWatcher.js" charset="utf-8"></script>
         <script src="./modules/HTTPWatcher/render.js" charset="utf-8"></script>
         <script src="./modules/point/point.js" charset="utf-8"></script>
@@ -102,6 +103,7 @@
             service.HTTPWatcher = new HTTPWatcherService;
             service.point = new PointService;
             service.log = new LogService;
+            service.finder = new FinderService;
             service.conn.init();
         </script>
 
