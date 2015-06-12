@@ -1,18 +1,67 @@
+var render_HTTPWatcher_filter = {
+    device_id:null,
+    url:null,
+    method:null,
+    status:null,
+    type:null
+};
+
 function render_HTTPWatcher_connection_update() {
-    $.get('./modules/HTTPWatcher/connection.html', function(result){
-        $('.HTTPWatcher_connection').html(result);
-        var i = 0;
-        $.each(service.HTTPWatcher.connections, function(k, v){
-            var connectionItem = v;
-            var connectionStatus = 'Pending';
-            if (connectionItem.responseStatusCode.length > 0 &&
-                connectionItem.responseStatusCode != '0') {
-                connectionStatus = connectionItem.responseStatusCode;
-            }
-            $('.HTTPWatcher_connection').find('tbody').append('<tr><td>'+i+'</td><td>'+connectionItem.deviceIdentifier.substr(-6, 6)+'</td><td data-toggle="modal" data-target="#globalModal" onclick="loadModal(\'modules/HTTPWatcher/item.html\', render_HTTPWatcher_update_item_modal, {id:'+k+'})"><span class="text-info">'+connectionItem.requestURLString+'</span></td><td>'+connectionStatus+'</td></tr>');
-            i++;
+    if ($('#HTTPWatcher_connection_table').length > 0) {
+        render_HTTPWatcher_connection_fill();
+    }
+    else {
+        $.get('./modules/HTTPWatcher/connection.html', function(result){
+            $('.HTTPWatcher_connection').html(result);
+            render_HTTPWatcher_connection_fill();
         });
-    })
+    }
+
+}
+
+function render_HTTPWatcher_connection_fill() {
+    $('#HTTPWatcher_connection_table').find('tbody').empty();
+    var i = 0;
+    $.each(service.HTTPWatcher.connections, function(k, v){
+        var connectionItem = v;
+        var connectionStatus = 'Pending';
+        if (connectionItem.responseStatusCode.length > 0 &&
+            connectionItem.responseStatusCode != '0') {
+            connectionStatus = connectionItem.responseStatusCode;
+        }
+        var urlString = connectionItem.requestURLString;
+        if (urlString.length > 50) {
+            urlString = urlString.substr(0, 24) + '...' + urlString.substr(-24, 24);
+        }
+        var device_id = connectionItem.deviceIdentifier.substr(-6, 6);
+        if (render_HTTPWatcher_filter.device_id != null &&
+            render_HTTPWatcher_filter.device_id.length > 0 &&
+            render_HTTPWatcher_filter.device_id.toUpperCase() != device_id) {
+            return;
+        }
+        if (render_HTTPWatcher_filter.url != null &&
+            render_HTTPWatcher_filter.url.length > 0 &&
+            connectionItem.requestURLString.indexOf(render_HTTPWatcher_filter.url) < 0) {
+            return;
+        }
+        if (render_HTTPWatcher_filter.method != null &&
+            render_HTTPWatcher_filter.method.length > 0 &&
+            render_HTTPWatcher_filter.method.toUpperCase() != connectionItem.requestMethod) {
+            return;
+        }
+        if (render_HTTPWatcher_filter.status != null &&
+            render_HTTPWatcher_filter.status.length > 0 &&
+            render_HTTPWatcher_filter.status != connectionItem.responseStatusCode) {
+            return;
+        }
+        if (render_HTTPWatcher_filter.type != null &&
+            render_HTTPWatcher_filter.type.length > 0 &&
+            connectionItem.responseMIMEType.indexOf(render_HTTPWatcher_filter.type) < 0) {
+            return;
+        }
+        $('.HTTPWatcher_connection').find('tbody').prepend('<tr><td>'+device_id+'</td><td data-toggle="modal" data-target="#globalModal" onclick="loadModal(\'modules/HTTPWatcher/item.html\', render_HTTPWatcher_update_item_modal, {id:'+k+'})"><span class="text-info">'+urlString+'</span></td><td>'+connectionItem.requestMethod+'</td><td>'+connectionStatus+'</td><td>'+connectionItem.responseMIMEType+'</td><td>size</td><td>time</td></tr>');
+        i++;
+    });
 }
 
 function render_HTTPWatcher_update_item_modal(params) {
