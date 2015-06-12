@@ -115,15 +115,19 @@
             if (originText.length > 0) {
                 var newText = originText.split(' ');
                 var lastComponent = newText.pop();
+                var found = false;
                 newText = newText.join(' ');
                 for (var i = 0; i < service.finder.subPaths.length; i++) {
                     if (service.finder.subPaths[i].indexOf(lastComponent) == 0) {
                         newText = newText + ' ' + service.finder.subPaths[i];
+                        found = true;
                         break;
                     }
                 }
-                $('#finder_cmd_shell').val(newText);
-                return;
+                if (found) {
+                    $('#finder_cmd_shell').val(newText);
+                    return;
+                }
             }
             $('#finder_cmd_shell').val(originText);
             return false;
