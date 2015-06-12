@@ -84,9 +84,13 @@
 </div>
 
 <script type="text/javascript">
+    var finder_cmd_history = [];
+    var finder_cmd_history_position = 0;
     var subPathsUpdateTimer;
 
     $('#finder_cmd_shell').change(function(){
+        finder_cmd_history.push($(this).val());
+        finder_cmd_history_position = finder_cmd_history.length;
         service.finder.sendShell($(this).val());
         $(this).val('');
     })
@@ -110,6 +114,8 @@
     function keyHandler(e) {
         var TABKEY = 9;
         var ENTERKEY = 13;
+        var UPKEY = 38;
+        var DOWNKEY = 40;
         if(e.keyCode == TABKEY) {
             var originText = $('#finder_cmd_shell').val();
             if(e.preventDefault) {
@@ -136,8 +142,24 @@
             return false;
         }
         else if (e.keyCode == ENTERKEY) {
+            finder_cmd_history.push($(this).val());
+            finder_cmd_history_position = finder_cmd_history.length;
             service.finder.sendShell($(this).val());
             $(this).val('');
+        }
+        else if (e.keyCode == UPKEY) {
+            if (finder_cmd_history_position-1 >= 0 && finder_cmd_history_position-1 < finder_cmd_history.length) {
+                finder_cmd_history_position--;
+                var cmd = finder_cmd_history[finder_cmd_history_position];
+                $('#finder_cmd_shell').val(cmd);
+            }
+        }
+        else if (e.keyCode == DOWNKEY) {
+            if (finder_cmd_history_position+1 >= 0 && finder_cmd_history_position+1 < finder_cmd_history.length) {
+                finder_cmd_history_position++;
+                var cmd = finder_cmd_history[finder_cmd_history_position];
+                $('#finder_cmd_shell').val(cmd);
+            }
         }
         else {
              return true;
