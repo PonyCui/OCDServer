@@ -5,7 +5,7 @@ $config['pms'] = array();
 /**
  * 限制单个用户的同时在线设备数
  **/
-$config['pms']['sub']['user_max_connections'] = 2;
+$config['pms']['sub']['user_max_connections'] = 50;
 
 /**
  * 当单个用户同时在线设备数超限时的处理方式
