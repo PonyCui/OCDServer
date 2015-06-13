@@ -12,6 +12,14 @@ class Pub_manager extends CI_Model
         $this -> load -> model('Pub_entity');
     }
 
+    public function message($id)
+    {
+        $this -> db -> from('pub');
+        $this -> db -> where('pub_id', $id);
+        $result = $this -> db -> get() -> row(0, 'Pub_entity');;
+        return $result;
+    }
+
     public function messages()
     {
         $this -> db -> from('pub');
@@ -35,6 +43,14 @@ class Pub_manager extends CI_Model
     {
         $message -> pub_id = null;
         $this -> db -> insert('pub', $message);
+        if ($this->db->insert_id() > 0) {
+            if (class_exists('SaeTaskQueue')) {
+                $queue = new SaeTaskQueue('push');
+                $queue->addTask("/index.php/pubsub_channel/rowPush?id=".$this->db->insert_id());
+                $queue->push();
+
+            }
+        }
     }
 
     public function deleteMessage(Pub_entity $message)

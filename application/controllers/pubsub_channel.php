@@ -68,6 +68,11 @@ class PubSub_Channel extends CI_Controller
         $this->Pub_service->intervalPush();
     }
 
+    public function rowPush()
+    {
+        $this->Pub_service->rowPush($this->input->get('id'));
+    }
+
 }
 
 /**

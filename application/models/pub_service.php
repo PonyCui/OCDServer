@@ -33,9 +33,14 @@ class Pub_service extends CI_Model
 
     public function intervalPush()
     {
-        for ($i=0; $i<60; $i++) {
-            $this -> _intervalPush();
-            sleep(1);
+        $this -> _intervalPush();
+    }
+
+    public function rowPush($row_id)
+    {
+        $message = $this -> Pub_manager -> message($row_id);
+        if (!empty($message)) {
+            $this -> post($message);
         }
     }
 

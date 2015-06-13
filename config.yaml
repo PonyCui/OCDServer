@@ -1,7 +1,6 @@
 name: ocdebugger
 version: 1
 handle:
- - rewrite: if ( !is_dir() && !is_file() && path ~ "(.*)$" ) goto "index.php/$1"
  - rewrite: if( path == "/_sae/channel/connected" ) goto "/index.php?c=pubsub_channel&m=connected"
  - rewrite: if( path == "/_sae/channel/disconnected" ) goto "/index.php?c=pubsub_channel&m=disconnected"
  - rewrite: if( path == "/_sae/channel/message" ) goto "/index.php?c=pubsub_channel&m=message"
