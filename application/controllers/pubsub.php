@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
 /**
  * Factory Class
  */
@@ -13,7 +14,7 @@ class PubSub extends CI_Controller
     }
 
     public function index()
-    {
+    {die('1');
         if (defined("SAE_TMP_PATH")) {
             //Channel
             $client_id = md5(uniqid(mt_rand(0, 9999999999)));
