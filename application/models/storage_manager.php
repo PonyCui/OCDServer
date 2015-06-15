@@ -47,8 +47,11 @@ class Storage_manager extends CI_Model
     public function removeItems()
     {
         if (!empty($this->kvdb)) {
-            $ret = $kv->pkrget('', 100);
+            $ret = $this->kvdb->pkrget('', 100);
             while (true) {
+                if (empty(key($ret))) {
+                    break;
+                }
                 $value = $ret[key($ret)];
                 $timestamp = substr($value, 0, 10);
                 if ((int)$timestamp < time()) {
@@ -58,7 +61,7 @@ class Storage_manager extends CI_Model
                 $start_key = key($ret);
                 $i = count($ret);
                 if ($i < 100) break;
-                $ret = $kv->pkrget('', 100, $start_key);
+                $ret = $this->kvdb->pkrget('', 100, $start_key);
             }
         }
         else {
