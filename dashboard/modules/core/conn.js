@@ -53,12 +53,28 @@ var ConnService = function(){
             service.console.log('onmessage:'+e);
             var msg;
             eval('msg = '+e.data);
-            var _service = msg.s;
-            var _method = msg.m;
-            var _params = msg.p;
-            if (_service in service) {
-                if (_method in service[_service]) {
-                    service[_service][_method](_params);
+
+            if (msg['_storageIdentifier'] != undefined) {
+                $.get('../index.php/storage/fetch?identifier='+msg['_storageIdentifier'], function(data){
+                    eval('newMsg = '+data);
+                    var _service = newMsg.s;
+                    var _method = newMsg.m;
+                    var _params = newMsg.p;
+                    if (_service in service) {
+                        if (_method in service[_service]) {
+                            service[_service][_method](_params);
+                        }
+                    }
+                });
+            }
+            else {
+                var _service = msg.s;
+                var _method = msg.m;
+                var _params = msg.p;
+                if (_service in service) {
+                    if (_method in service[_service]) {
+                        service[_service][_method](_params);
+                    }
                 }
             }
         }

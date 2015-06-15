@@ -32,7 +32,7 @@ class Storage_manager extends CI_Model
     {
         $files = scandir('./storage');
         foreach ($files as $fileName) {
-            if ($fileName == '.' || $fileName == '..') {
+            if ($fileName == '.' || $fileName == '..' || $fileName == 'index.html') {
                 continue;
             }
             $fileContents = file_get_contents('./storage/'.$fileName);

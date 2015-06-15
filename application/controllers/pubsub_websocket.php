@@ -38,6 +38,14 @@ class PubSub_WebSocket extends CI_Controller implements MessageComponentInterfac
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
+        if (strpos($msg, '_storageIdentifier') > 0) {
+            $this->load->model('Storage_manager');
+            $json = json_decode($msg, true);
+            $msg = $this->Storage_manager->contentsWithIdentifier($json['_storageIdentifier']);
+            if (mt_rand(0, 10) < 2) {
+                $this->Storage_manager->removeItems();
+            }
+        }
         $service = pms_service($msg);
         $method = pms_method($msg);
         $params = pms_params($msg);
