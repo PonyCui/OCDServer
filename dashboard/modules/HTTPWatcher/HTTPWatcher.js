@@ -32,6 +32,9 @@ var HTTPWatcherConnectionEntity = function() {
         if (this.requestHeader.indexOf('_OCD.ResendConnection') >= 0) {
             this.isResendConnection = true;
         }
+        if (params.responseString.length > 0) {
+            this.responseString = atob(params.responseString);
+        }
     }
 
 }

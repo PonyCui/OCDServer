@@ -55,8 +55,7 @@ var ConnService = function(){
             eval('msg = '+e.data);
 
             if (msg['_storageIdentifier'] != undefined) {
-                $.get('../index.php/storage/fetch?identifier='+msg['_storageIdentifier'], function(data){
-                    eval('newMsg = '+data);
+                $.getJSON('../index.php/storage/fetch?identifier='+msg['_storageIdentifier'], function(newMsg){
                     var _service = newMsg.s;
                     var _method = newMsg.m;
                     var _params = newMsg.p;
