@@ -38,6 +38,14 @@ class PubSub_Channel extends CI_Controller
     {
         $from = new PubSub_Channel_Connection($this->input->post('from'));
         $msg = $this->input->post('message');
+        if (strpos($msg, '_storageIdentifier') > 0) {
+            $this->load->model('Storage_manager');
+            $json = json_decode($msg, true);
+            $msg = $this->Storage_manager->contentsWithIdentifier($json['_storageIdentifier']);
+            if (mt_rand(0, 10) < 2) {
+                $this->Storage_manager->removeItems();
+            }
+        }
         $service = pms_service($msg);
         $method = pms_method($msg);
         $params = pms_params($msg);
