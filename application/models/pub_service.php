@@ -49,7 +49,7 @@ class Pub_service extends CI_Model
         $conns = $this->super_services['sub']->observers($message->sub_user_id);
         foreach ($conns as $conn) {
             $msg = pms_message($message->sub_service, $message->sub_method, json_decode($message->sub_params, true));
-            if (strlen($msg) > 1024 * 16) {
+            if (strlen($msg) > 1024 * 4) {
                 $this->load->model('Storage_manager');
                 $uniqid = uniqid('Pub_service.storage');
                 $item = new Storage_entity;
