@@ -1,0 +1,59 @@
+<div class="modal-dialog" style="width: 60%;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel">Modifiers</h4>
+    </div>
+    <div class="modal-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#mapping" aria-controls="mapping" role="tab" data-toggle="tab">Mapping</a></li>
+          <li role="presentation"><a href="#rewrite" aria-controls="rewrite" role="tab" data-toggle="tab">Rewrite</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="mapping">
+              <div class="table-responsive">
+                  <table class="table table-striped">
+                      <thead>
+                          <tr>
+                              <th class="col-xs-2">
+                                  ID
+                              </th>
+                              <th>
+                                  From Pattern
+                              </th>
+                              <th>
+                                  To Pattern
+                              </th>
+                              <th class="col-xs-2">
+                                  Status
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                      <tfoot>
+                          <tr>
+                              <td colspan="4" class="text-center">
+                                  <button type="button" class="btn btn-default col-xs-12" data-toggle="modal" data-target="#mappingModal">
+                                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                      Create Mapping Rule
+                                  </button>
+                              </td>
+                          </tr>
+                      </tfoot>
+                  </table>
+              </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="rewrite">
+
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
