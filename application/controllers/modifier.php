@@ -33,21 +33,21 @@ class Modifier extends CI_Controller
     public function add()
     {
         $params = $this->input->post('params');
-        $this->Modifier_manager->addItem($this->tokenItem->appid, $params);
+        $this->Modifier_manager->addItem($this->tokenItem->user_id, $params);
     }
 
     public function delete()
     {
-        $this->Modifier_manager->deleteItem($this->tokenItem->appid, $this->input->get('id'));
+        $this->Modifier_manager->deleteItem($this->tokenItem->user_id, $this->input->get('id'));
     }
 
     public function valid()
     {
-        $this->Modifier_manager->validItem($this->tokenItem->appid, $this->input->get('id'));
+        $this->Modifier_manager->validItem($this->tokenItem->user_id, $this->input->get('id'));
     }
 
     public function invalid()
     {
-        $this->Modifier_manager->invalidItem($this->tokenItem->appid, $this->input->get('id'));
+        $this->Modifier_manager->invalidItem($this->tokenItem->user_id, $this->input->get('id'));
     }
 }

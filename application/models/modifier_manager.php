@@ -17,7 +17,7 @@ class Modifier_manager extends CI_Model
     {
         $item = new Modifier_entity;
         $item->user_id = $user_id;
-        $item->modifier_params = json_encode($modifier_params);
+        $item->modifier_params = $modifier_params;
         $this->db->insert('modifier', $item);
         return $this->db->insert_id();
     }
@@ -25,7 +25,6 @@ class Modifier_manager extends CI_Model
     public function allItems($user_id)
     {
         $this->db->where('user_id', $user_id);
-        $this->db->where('is_valid', 1);
         $query = $this->db->get('modifier');
         $result = $query -> result('Modifier_entity');
         return $result;
@@ -35,7 +34,7 @@ class Modifier_manager extends CI_Model
     {
         $this->db->where('user_id', $user_id);
         $this->db->where('modifier_id', $modifier_id);
-        return $this->db->delete();
+        return $this->db->delete('modifier');
     }
 
     public function validItem($user_id, $modifier_id)

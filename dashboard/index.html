@@ -115,7 +115,12 @@
             function loadModal(template, func, params) {
                 $.get(template, function(result){
                     $('#globalModal').html(result);
-                    func(params);
+                    if (typeof func == 'string') {
+                        eval(func+"(params)");
+                    }
+                    else {
+                        func(params);
+                    }
                 })
             }
         </script>
@@ -195,132 +200,15 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitMappingData()">Save</button>
         </div>
       </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    $('#mappingModal').find('.from_use').click(function(){
-        if ($(this).text() == 'Use Pattern') {
-            $('#mappingModal').find('.from_detail').hide();
-            $('#mappingModal').find('.from_pattern').show();
-            $(this).text('Use Builder')
-        }
-        else {
-            $('#mappingModal').find('.from_detail').show();
-            $('#mappingModal').find('.from_pattern').hide();
-            $(this).text('Use Pattern')
-        }
-    })
 
-    $('#mappingModal').find('.to_use').click(function(){
-        if ($(this).text() == 'Use Pattern') {
-            $('#mappingModal').find('.to_detail').hide();
-            $('#mappingModal').find('.to_pattern').show();
-            $(this).text('Use Builder')
-        }
-        else {
-            $('#mappingModal').find('.to_detail').show();
-            $('#mappingModal').find('.to_pattern').hide();
-            $(this).text('Use Pattern')
-        }
-    })
+    
 
-    $('#mappingModal').find('.from_detail:input').change(function(){
-        updateMappingFromPattern();
-    })
 
-    $('#mappingModal').find('.from_detail').find('input').change(function(){
-        updateMappingFromPattern()
-    })
-
-    function updateMappingFromPattern() {
-        var scheme = $('#from_scheme').val();
-        var host = $('#from_host').val();
-        var port = $('#from_port').val();
-        var path = $('#from_path').val();
-        var query = $('#from_query').val();
-        var pattern = '';
-        if (scheme.length > 0) {
-            pattern = '('+scheme+')://';
-        }
-        else {
-            pattern = '([\\s\\S]+)://';
-        }
-        if (host.length > 0) {
-            pattern = pattern + '('+host+')';
-        }
-        else {
-            pattern = pattern + '([0-9a-zA-Z|.]+)'
-        }
-        if (port.length > 0) {
-            pattern = pattern + '(:'+port+')';
-        }
-        else {
-            pattern = pattern + '([:|[0-9]*)';
-        }
-        if (path.length > 0) {
-            pattern = pattern + '('+path+')';
-        }
-        else {
-            pattern = pattern + '([^?]+)';
-        }
-        if (query.length > 0) {
-            pattern = pattern + '[\\?]*('+query+')';
-        }
-        else {
-            pattern = pattern + '[\\?]*(.*)';
-        }
-        $('#from_pattern').val(pattern);
-    }
-
-    $('#mappingModal').find('.to_detail:input').change(function(){
-        updateMappingToPattern();
-    })
-
-    $('#mappingModal').find('.to_detail').find('input').change(function(){
-        updateMappingToPattern()
-    })
-
-    function updateMappingToPattern() {
-        var scheme = $('#to_scheme').val();
-        var host = $('#to_host').val();
-        var port = $('#to_port').val();
-        var path = $('#to_path').val();
-        var query = $('#to_query').val();
-        var pattern = '';
-        if (scheme.length > 0) {
-            pattern = scheme+'://';
-        }
-        else {
-            pattern = '$1://';
-        }
-        if (host.length > 0) {
-            pattern = pattern + host;
-        }
-        else {
-            pattern = pattern + '$2';
-        }
-        if (port.length > 0) {
-            pattern = pattern + ':'+port+'';
-        }
-        else {
-            pattern = pattern + '$3';
-        }
-        if (path.length > 0) {
-            pattern = pattern + path;
-        }
-        else {
-            pattern = pattern + '$4';
-        }
-        if (query.length > 0) {
-            pattern = pattern + '\\?' + query;
-        }
-        else {
-            pattern = pattern + '?$5';
-        }
-        $('#to_pattern').val(pattern);
-    }
 </script>
