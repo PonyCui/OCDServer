@@ -13,6 +13,7 @@ class Modifier extends CI_Controller
         parent::__construct();
         $this->load->model('Token_manager');
         $this->load->model('Modifier_manager');
+        $this->load->model('Pub_manager');
         $tokenItem = new Token_entity;
         $tokenItem->user_id = $this->input->get('appid');
         $tokenItem->session_token = $this->input->get('apptoken');
@@ -34,20 +35,24 @@ class Modifier extends CI_Controller
     {
         $params = $this->input->post('params');
         $this->Modifier_manager->addItem($this->tokenItem->user_id, $params);
+        $this->Pub_manager->addNotify($this->tokenItem->user_id, 'HTTPWatcher', 'updateModifiers');
     }
 
     public function delete()
     {
         $this->Modifier_manager->deleteItem($this->tokenItem->user_id, $this->input->get('id'));
+        $this->Pub_manager->addNotify($this->tokenItem->user_id, 'HTTPWatcher', 'updateModifiers');
     }
 
     public function valid()
     {
         $this->Modifier_manager->validItem($this->tokenItem->user_id, $this->input->get('id'));
+        $this->Pub_manager->addNotify($this->tokenItem->user_id, 'HTTPWatcher', 'updateModifiers');
     }
 
     public function invalid()
     {
         $this->Modifier_manager->invalidItem($this->tokenItem->user_id, $this->input->get('id'));
+        $this->Pub_manager->addNotify($this->tokenItem->user_id, 'HTTPWatcher', 'updateModifiers');
     }
 }

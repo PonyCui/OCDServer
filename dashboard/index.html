@@ -57,6 +57,120 @@
 
         </div>
 
+        <!-- MappingModal -->
+        <div class="modal fade" id="mappingModal" tabindex="-1" role="dialog" aria-labelledby="mappingModal" aria-hidden="true">
+            <div class="modal-dialog" style="width: 60%;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Mapping</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="title">From ( <a class="from_use">Use Pattern</a> )</label>
+                      <input type="text" class="form-control from_detail" id="from_scheme" placeholder="Scheme">
+                    </div>
+                    <div class="form-group from_detail">
+                        <input type="text" class="form-control" id="from_host" placeholder="Host">
+                    </div>
+                    <div class="form-group from_detail">
+                        <input type="text" class="form-control" id="from_port" placeholder="Port">
+                    </div>
+                    <div class="form-group from_detail">
+                        <input type="text" class="form-control" id="from_path" placeholder="Path">
+                    </div>
+                    <div class="form-group from_detail">
+                        <input type="text" class="form-control" id="from_query" placeholder="Query">
+                    </div>
+                    <div class="form-group from_pattern" style="display:none;">
+                        <input type="text" class="form-control" id="from_pattern" placeholder="Pattern">
+                    </div>
+                    <div class="form-group">
+                      <label for="title">To ( <a class="to_use">Use Pattern</a> )</label>
+                      <input type="text" class="form-control to_detail" id="to_scheme" placeholder="Scheme">
+                    </div>
+                    <div class="form-group to_detail">
+                        <input type="text" class="form-control" id="to_host" placeholder="Host">
+                    </div>
+                    <div class="form-group to_detail">
+                        <input type="text" class="form-control" id="to_port" placeholder="Port">
+                    </div>
+                    <div class="form-group to_detail">
+                        <input type="text" class="form-control" id="to_path" placeholder="Path">
+                    </div>
+                    <div class="form-group to_detail">
+                        <input type="text" class="form-control" id="to_query" placeholder="Query">
+                    </div>
+                    <div class="form-group to_pattern" style="display:none;">
+                        <input type="text" class="form-control" id="to_pattern" placeholder="Pattern">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitMappingData()">Save</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- RewriteModal -->
+        <div class="modal fade" id="rewriteModal" tabindex="-1" role="dialog" aria-labelledby="rewriteModal" aria-hidden="true">
+            <div class="modal-dialog" style="width: 60%;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Rewrite</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="title">From ( <a class="from_use">Use Pattern</a> )</label>
+                      <input type="text" class="form-control from_detail" id="from_scheme" placeholder="Scheme">
+                    </div>
+                    <div class="form-group from_detail">
+                        <input type="text" class="form-control" id="from_host" placeholder="Host">
+                    </div>
+                    <div class="form-group from_detail">
+                        <input type="text" class="form-control" id="from_port" placeholder="Port">
+                    </div>
+                    <div class="form-group from_detail">
+                        <input type="text" class="form-control" id="from_path" placeholder="Path">
+                    </div>
+                    <div class="form-group from_detail">
+                        <input type="text" class="form-control" id="from_query" placeholder="Query">
+                    </div>
+                    <div class="form-group from_pattern" style="display:none;">
+                        <input type="text" class="form-control" id="from_pattern" placeholder="Pattern">
+                    </div>
+                    <div class="form-group">
+                      <label for="title">Action</label>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default">Response Text</button>
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">Response Text</a></li>
+                      </ul>
+                    </div>
+                    <div style="height: 18px"></div>
+                    <div class="form-group to_detail">
+                        <input type="text" class="form-control" id="origin_word" placeholder="Origin word, input the word eager be replaced.">
+                    </div>
+                    <div class="form-group to_detail">
+                        <input type="text" class="form-control" id="action_word" placeholder="Action word, input the word replace origin word.">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitRewriteData()">Save</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
         <script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js" charset="utf-8"></script>
         <script src="http://lib.sinaapp.com/js/bootstrap/3.0.0/js/bootstrap.min.js" charset="utf-8"></script>
         <script src="./modules/core/core.js" charset="utf-8"></script>
@@ -149,66 +263,3 @@
         </script>
     </body>
 </html>
-
-<!-- MappingModal -->
-<div class="modal fade" id="mappingModal" tabindex="-1" role="dialog" aria-labelledby="mappingModal" aria-hidden="true">
-    <div class="modal-dialog" style="width: 60%;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="mappingModal">Mapping</h4>
-        </div>
-        <div class="modal-body">
-            <div class="form-group">
-              <label for="title">From ( <a class="from_use">Use Pattern</a> )</label>
-              <input type="text" class="form-control from_detail" id="from_scheme" placeholder="Scheme">
-            </div>
-            <div class="form-group from_detail">
-                <input type="text" class="form-control" id="from_host" placeholder="Host">
-            </div>
-            <div class="form-group from_detail">
-                <input type="text" class="form-control" id="from_port" placeholder="Port">
-            </div>
-            <div class="form-group from_detail">
-                <input type="text" class="form-control" id="from_path" placeholder="Path">
-            </div>
-            <div class="form-group from_detail">
-                <input type="text" class="form-control" id="from_query" placeholder="Query">
-            </div>
-            <div class="form-group from_pattern" style="display:none;">
-                <input type="text" class="form-control" id="from_pattern" placeholder="Pattern">
-            </div>
-            <div class="form-group">
-              <label for="title">To ( <a class="to_use">Use Pattern</a> )</label>
-              <input type="text" class="form-control to_detail" id="to_scheme" placeholder="Scheme">
-            </div>
-            <div class="form-group to_detail">
-                <input type="text" class="form-control" id="to_host" placeholder="Host">
-            </div>
-            <div class="form-group to_detail">
-                <input type="text" class="form-control" id="to_port" placeholder="Port">
-            </div>
-            <div class="form-group to_detail">
-                <input type="text" class="form-control" id="to_path" placeholder="Path">
-            </div>
-            <div class="form-group to_detail">
-                <input type="text" class="form-control" id="to_query" placeholder="Query">
-            </div>
-            <div class="form-group to_pattern" style="display:none;">
-                <input type="text" class="form-control" id="to_pattern" placeholder="Pattern">
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitMappingData()">Save</button>
-        </div>
-      </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-
-    
-
-
-</script>

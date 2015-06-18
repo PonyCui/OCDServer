@@ -123,6 +123,7 @@ function fetchMappingData() {
         }
 
     });
+    fetchRewriteData();
 }
 
 function submitMappingData() {
@@ -130,8 +131,8 @@ function submitMappingData() {
     updateMappingToPattern();
     var params = JSON.stringify({
         'type': 'mapping',
-        'fromPattern': $('#from_pattern').val(),
-        'toPattern': $('#to_pattern').val()
+        'fromPattern': $('#mappingModal').find('#from_pattern').val(),
+        'toPattern': $('#mappingModal').find('#to_pattern').val()
     });
     var data = {
         'params': params
@@ -196,11 +197,11 @@ $('#mappingModal').find('.from_detail').find('input').change(function(){
 })
 
 function updateMappingFromPattern() {
-    var scheme = $('#from_scheme').val();
-    var host = $('#from_host').val();
-    var port = $('#from_port').val();
-    var path = $('#from_path').val();
-    var query = $('#from_query').val();
+    var scheme = $('#mappingModal').find('#from_scheme').val();
+    var host = $('#mappingModal').find('#from_host').val();
+    var port = $('#mappingModal').find('#from_port').val();
+    var path = $('#mappingModal').find('#from_path').val();
+    var query = $('#mappingModal').find('#from_query').val();
     var pattern = '';
     if (scheme.length > 0) {
         pattern = '('+scheme+')://';
@@ -232,7 +233,7 @@ function updateMappingFromPattern() {
     else {
         pattern = pattern + '[\\?]*(.*)';
     }
-    $('#from_pattern').val(pattern);
+    $('#mappingModal').find('#from_pattern').val(pattern);
 }
 
 $('#mappingModal').find('.to_detail:input').change(function(){
@@ -244,11 +245,11 @@ $('#mappingModal').find('.to_detail').find('input').change(function(){
 })
 
 function updateMappingToPattern() {
-    var scheme = $('#to_scheme').val();
-    var host = $('#to_host').val();
-    var port = $('#to_port').val();
-    var path = $('#to_path').val();
-    var query = $('#to_query').val();
+    var scheme = $('#mappingModal').find('#to_scheme').val();
+    var host = $('#mappingModal').find('#to_host').val();
+    var port = $('#mappingModal').find('#to_port').val();
+    var path = $('#mappingModal').find('#to_path').val();
+    var query = $('#mappingModal').find('#to_query').val();
     var pattern = '';
     if (scheme.length > 0) {
         pattern = scheme+'://';
@@ -280,5 +281,99 @@ function updateMappingToPattern() {
     else {
         pattern = pattern + '?$5';
     }
-    $('#to_pattern').val(pattern);
+    $('#mappingModal').find('#to_pattern').val(pattern);
+}
+
+$('#rewriteModal').find('.from_use').click(function(){
+    if ($(this).text() == 'Use Pattern') {
+        $('#rewriteModal').find('.from_detail').hide();
+        $('#rewriteModal').find('.from_pattern').show();
+        $(this).text('Use Builder')
+    }
+    else {
+        $('#rewriteModal').find('.from_detail').show();
+        $('#rewriteModal').find('.from_pattern').hide();
+        $(this).text('Use Pattern')
+    }
+})
+
+$('#rewriteModal').find('.from_detail:input').change(function(){
+    updateRewriteFromPattern();
+})
+
+$('#rewriteModal').find('.from_detail').find('input').change(function(){
+    updateRewriteFromPattern()
+})
+
+function updateRewriteFromPattern() {
+    var scheme = $('#rewriteModal').find('#from_scheme').val();
+    var host = $('#rewriteModal').find('#from_host').val();
+    var port = $('#rewriteModal').find('#from_port').val();
+    var path = $('#rewriteModal').find('#from_path').val();
+    var query = $('#rewriteModal').find('#from_query').val();
+    var pattern = '';
+    if (scheme.length > 0) {
+        pattern = '('+scheme+')://';
+    }
+    else {
+        pattern = '([\\s\\S]+)://';
+    }
+    if (host.length > 0) {
+        pattern = pattern + '('+host+')';
+    }
+    else {
+        pattern = pattern + '([0-9a-zA-Z|.]+)'
+    }
+    if (port.length > 0) {
+        pattern = pattern + '(:'+port+')';
+    }
+    else {
+        pattern = pattern + '([^/]*)';
+    }
+    if (path.length > 0) {
+        pattern = pattern + '('+path+')';
+    }
+    else {
+        pattern = pattern + '([^?]+)';
+    }
+    if (query.length > 0) {
+        pattern = pattern + '[\\?]*('+query+')';
+    }
+    else {
+        pattern = pattern + '[\\?]*(.*)';
+    }
+    $('#rewriteModal').find('#from_pattern').val(pattern);
+}
+
+function fetchRewriteData() {
+    $.getJSON('../index.php/modifier/fetch?appid='+serviceAppID+'&apptoken='+serviceTokenID, function(result){
+        $('#rewrite').find('tbody').empty();
+        for (var i = 0; i < result.length; i++) {
+            var v = result[i];
+            eval('var params = '+v.modifier_params);
+            var validString = v.is_valid == '1' ? '<button type="button" class="btn btn-success btn-xs" onclick="invalidModifier(\''+v.modifier_id+'\')">Valid</button>' : '<button type="button" class="btn btn-default btn-xs" onclick="validModifier(\''+v.modifier_id+'\')">Invalid</button>';
+            if (params.type == 'rewrite') {
+                var toString = 'area:'+params.fromArea+',originWord:'+params.originWord+',actionWord:'+params.actionWord;
+                $('#rewrite').find('tbody').append('<tr><td>'+v.modifier_id+'</td><td>'+params.fromPattern+'</td><td>'+toString+'</td><td>'+validString+'</td><td><button class="btn btn-danger btn-xs" onclick="deleteModifier(\''+v.modifier_id+'\')">Delete</button></td></tr>');
+            }
+        }
+
+    });
+}
+
+function submitRewriteData() {
+    updateRewriteFromPattern();
+    var params = JSON.stringify({
+        'type': 'rewrite',
+        'fromPattern': $('#rewriteModal').find('#from_pattern').val(),
+        'fromArea': 'responseText',
+        'originWord': $('#rewriteModal').find('#origin_word').val(),
+        'actionWord': $('#rewriteModal').find('#action_word').val()
+    });
+    var data = {
+        'params': params
+    }
+    $.post('../index.php/modifier/add?appid='+serviceAppID+'&apptoken='+serviceTokenID, data, function(result){
+        fetchRewriteData();
+    })
 }
