@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: 127.0.0.1
--- 生成日期: 2015 年 06 月 11 日 08:56
+-- 生成日期: 2015 年 06 月 18 日 08:36
 -- 服务器版本: 5.6.14
 -- PHP 版本: 5.5.24
 
@@ -13,6 +13,21 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `ocdserver`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ocd_modifier`
+--
+
+CREATE TABLE IF NOT EXISTS `ocd_modifier` (
+  `modifier_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `modifier_params` text COLLATE utf8_bin NOT NULL,
+  `is_valid` tinyint(1) NOT NULL,
+  PRIMARY KEY (`modifier_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
